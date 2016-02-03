@@ -1,0 +1,141 @@
+
+.newhead{
+	background-color: #B7DE7D;
+}
+
+.container-1{
+	padding-top: 10px;
+	padding-left: 10px;
+	float: left;
+  width: 460px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+
+.container-1 input#search{
+  width: 420px;
+  height: 30px;
+  background: white; /*#2b303b;*/
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/*.container-1 input#search:hover, .container-1 input#search:focus, .container-1 input#search:active{
+    outline:none;
+    background: #ffffff;
+  }*/
+
+.container-1 input#search::-webkit-input-placeholder {
+   color: #65737e;
+}
+ 
+.container-1 input#search:-moz-placeholder { /* Firefox 18- */
+   color: #65737e;  
+}
+ 
+.container-1 input#search::-moz-placeholder {  /* Firefox 19+ */
+   color: #65737e;  
+}
+ 
+.container-1 input#search:-ms-input-placeholder {  
+   color: #65737e;  
+}
+
+.container-1 .icon{
+  position: absolute;
+  top: -5%;
+  margin-left: 17px;
+  margin-top: 17px;
+  z-index: 1;
+  color: #DD4B39;
+}
+
+
+#main {
+  margin-top: 50px;
+  min-height: 800px;
+  overflow: hidden;
+}
+
+
+#navbarName {
+	font-size: 33px;
+	font-weight: bolder;
+	color: white;
+	margin-top: 5px;
+	margin-left: 10%;
+
+}
+
+
+
+#sideBarDesign {
+	background-color: white;
+}
+
+#sidebarimg {
+	width: 160px;
+	height: 160px;
+}
+
+.sections {
+	color: #0078D7;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+ul {
+	list-style: none;
+	margin-left: -35px;
+}
+
+ul > li > a > #sociel-icon {
+	/*width: 40px;
+	height: 40px;*/
+	float: left;
+	margin-right: 20px;
+	margin-top: 10px;
+}
+
+ul > li > a > .fb:hover{
+  color: #43609C;
+}
+
+ul > li > a > .link:hover{
+  color: #1B86BC;
+}
+ul > li > a > .goog:hover{
+  color: #CE4639;
+}
+ul > li > a > .twit:hover{
+  color: #55ACEE;
+}
+
+#my-name{
+  width: 1400px;
+  /*height: 250px;*/
+  background-color: #FFF;
+  margin-top  : 10px;
+}
+#up-pic{
+  margin: 10px;
+}
+#pro-pic{
+  margin: 10px;
+}
+
+#pro-info{
+    float: left;
+    
+}
+
+.icon-bar{
+  background-color: #ffffff;
+}

@@ -1,0 +1,52 @@
+    
+header{
+  box-sizing: border-box;
+	text-align: center;
+  width: 100%;
+  padding: 25px 40px;
+/*    background-color: #673AB7;*/
+  overflow: hidden;	
+}
+
+header img{
+	float: left;
+	height: 120px;
+	width: 150px;
+}
+
+header h1{
+    float: left;
+    padding-left: 20px;
+    padding-top: 30px;
+    font: 25px/1.5 Arial, Helvetica, sans-serif;
+    color: green;
+}
+
+
+
+#butt{
+    margin-top: 20px;
+}
+
+
+hr {
+    display: block;
+    -webkit-margin-before: 0.5em;
+    -webkit-margin-after: 0.5em;
+    -webkit-margin-start: auto;
+    -webkit-margin-end: auto;
+    border-style: inset;
+    border-width: 2px;
+}
+
+hr.hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #6caee0;
+    padding: 0;
+    width: 100%;
+}
+
+
+

@@ -1,0 +1,422 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\about;
+
+use App\award;
+use App\certification;
+
+use App\course;
+use App\experience;
+use App\Http\Controllers\Controller;
+
+use App\profiledetails;
+use App\project;
+use App\publication;
+use App\testscore;
+use App\volunteering;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+class homeController extends Controller {
+	public function index() {
+		//return view('home');
+		return 'Hurreh !! Controller is Working parfectly';
+	}
+	public function about() {
+
+		return view('Home');
+
+		/*$name = "Abdur Razzak";
+		$id = "113-15-1565";
+		$phone = "01680064835";*/
+
+		//return view('about')->with('name', $name);
+		//return view('Home', compact("name", "id", "phone"));
+
+		//return 'Hurreh !! Controller is Working parfectly';
+	}
+	public function profile() {
+
+		if (Auth::check()) {
+			//return view('/pages/profile');
+			return view('/profile_page/index');
+		}
+		return redirect('auth/login');
+
+		// return view('/pages/profile');
+	}
+
+	public function confirmMailAddress() {
+		return view('/pages/confirmMail');
+	}
+
+	public function terms() {
+
+		return view('pages/Terms');
+	}
+
+	public function forget() {
+
+		return view('pages/forget_pass');
+	}
+
+	public function dashboard() {
+
+		return view('/Dashboard/dashboard');
+	}
+
+	// form section
+	public function project(Request $request) {
+
+		//get logged in user data;
+		$user = $request->user();
+		//$alldata= project::all();
+		//delete a specific row;
+		if ($request->delete) {
+			DB::delete('delete from projects where id = ?', [$request->delete]);
+		}
+		$data["project_list"] = DB::select('select * from projects where user_id = ?', [$user->id]);
+		//        echo "<pre>";
+		//        print_r($project_list);
+		return view('project-test', $data);
+		//return view('project-test',compact('alldata'));
+	}
+
+	public function addproject(Request $request) {
+
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+		return view('/form/add-project', $data);
+	}
+
+	public function pstore(Request $request) {
+
+		$input              = new project;
+		$input->user_id     = $request->user_id;
+		$input->title       = $request->title;
+		$input->supervisor  = $request->supervisor;
+		$input->url         = $request->url;
+		$input->pmember     = $request->member;
+		$input->date        = $request->date;
+		$input->description = $request->description;
+		$input->save();
+		return redirect('project-test');
+
+	}
+
+	public function publication(Request $request) {
+
+		if ($request->delete) {
+			DB::delete('delete from publications where id = ?', [$request->delete]);
+		}
+		//$alldata=publication::all();
+		$user                     = $request->user();
+		$data['publication_list'] = DB::select('select * from publications where user_id=?', [$user->id]);
+		return view('publication', $data);
+
+		if ($request->delete) {
+			DB::delete('delete from publications where id = ?', [$request->delete]);
+		}
+	}
+
+	public function addpublication(Request $request) {
+
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+
+		return view('/form/add-publication', $data);
+	}
+
+	public function publicationstore(Request $request) {
+
+		$input              = new publication;
+		$input->user_id     = $request->user_id;
+		$input->title       = $request->title;
+		$input->publisher   = $request->publisher;
+		$input->url         = $request->url;
+		$input->auther      = $request->auther;
+		$input->date        = $request->date;
+		$input->description = $request->description;
+
+		$input->save();
+		return redirect('publication');
+
+	}
+
+	public function awards(Request $request) {
+
+		if ($request->delete) {
+
+			DB::delete('delete from awards where id=?', [$request->delete]);
+		}
+		//$alldata=award::all();
+		$user               = $request->user();
+		$data['award_list'] = DB::select('Select * from awards where user_id=?', [$user->id]);
+
+		return view('awards', $data);
+	}
+
+	public function addawards(Request $request) {
+
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+
+		return view('/form/add-award', $data);
+	}
+
+	public function awardstore(Request $request) {
+
+		$input               = new award;
+		$input->user_id      = $request->user_id;
+		$input->title        = $request->title;
+		$input->organization = $request->organization;
+		$input->issuar       = $request->issuar;
+		$input->description  = $request->description;
+		$input->save();
+
+		return redirect('awards');
+
+	}
+
+	public function certification(Request $request) {
+
+		if ($request->delete) {
+			DB::delete('delete from certifications where id=?', [$request->delete]);
+		}
+		//$alldata= certification::all();
+		$user               = $request->user();
+		$data['certi_list'] = DB::select('select * from certifications where user_id=?', [$user->id]);
+
+		return view('certification', $data);
+	}
+
+	public function addcertification(Request $request) {
+
+		$user = $request->user();
+
+		$data['user_id'] = $user->id;
+
+		return view('/form/add-certification', $data);
+	}
+
+	public function certificationstore(Request $request) {
+		$input            = new certification;
+		$input->user_id   = $request->user_id;
+		$input->name      = $request->name;
+		$input->authority = $request->authority;
+		$input->license   = $request->license;
+		$input->url       = $request->url;
+		$input->date      = $request->date;
+		$input->save();
+
+		return redirect('certification');
+
+	}
+
+	public function coding() {
+
+		return view('/form/add-coding');
+	}
+
+	public function scores(Request $request) {
+
+		if ($request->delete) {
+			DB::delete('delete from score where id=?', [$request->delete]);
+		}
+
+		//$alldata= testscore::all();
+		$user               = $request->user();
+		$data['score_list'] = DB::select('select * from score where user_id=?', [$user->id]);
+		return view('scores', $data);
+	}
+
+	public function addscore(Request $request) {
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+
+		return view('/form/add-score', $data);
+	}
+
+	public function scorestore(Request $request) {
+
+		$input              = new testscore;
+		$input->user_id     = $request->user_id;
+		$input->name        = $request->name;
+		$input->insname     = $request->insname;
+		$input->score       = $request->score;
+		$input->date        = $request->date;
+		$input->description = $request->description;
+		$input->save();
+
+		return redirect('scores');
+
+	}
+
+	public function blog() {
+
+		return view('/Blog/article');
+	}
+
+	public function experience(Request $request) {
+
+		if ($request->delete) {
+			DB::delete('delete from experiences where id=?', [$request->delete]);
+		}
+
+		//$alldata= experience::all();
+		$user             = $request->user();
+		$data['exp_list'] = DB::select('select * from experiences where user_id=?', [$user->id]);
+		return view('experience', $data);
+	}
+
+	public function addexperience(Request $request) {
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+
+		return view('/form/add-experience', $data);
+	}
+
+	public function experiencestore(Request $request) {
+
+		$input              = new experience;
+		$input->user_id     = $request->user_id;
+		$input->name        = $request->name;
+		$input->role        = $request->role;
+		$input->address     = $request->address;
+		$input->duration    = $request->duration;
+		$input->description = $request->description;
+		$input->save();
+
+		return redirect('experience');
+	}
+
+	public function courses(Request $request) {
+
+		if ($request->delete) {
+			DB::delete('delete from courses where id=?', [$request->delete]);
+		}
+
+		//$alldata= course::all();
+		$user                = $request->user();
+		$data['course_list'] = DB::select('select * from courses where user_id=?', [$user->id]);
+		return view('courses', $data);
+	}
+
+	public function addcourse(Request $request) {
+
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+
+		return view('/form/add-courses', $data);
+	}
+
+	public function courseStore(Request $request) {
+
+		$input             = new course;
+		$input->user_id    = $request->user_id;
+		$input->title      = $request->title;
+		$input->code       = $request->code;
+		$input->associated = $request->associated;
+		$input->save();
+
+		return redirect('courses');
+
+	}
+
+	public function volunteering(Request $request) {
+
+		if ($request->delete) {
+			DB::delete('delete from volun where id=?', [$request->delete]);
+		}
+
+		$user               = $request->user();
+		$data['volun_list'] = DB::select('select * from volun where user_id=?', [$user->id]);
+
+		return view('volunteering', $data);
+	}
+
+	public function addvolun(Request $request) {
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+
+		return view('/form/add-volun-expe', $data);
+
+	}
+
+	public function volunstore(Request $request) {
+
+		$input              = new volunteering;
+		$input->user_id     = $request->user_id;
+		$input->name        = $request->name;
+		$input->role        = $request->role;
+		$input->reason      = $request->reason;
+		$input->date        = $request->date;
+		$input->description = $request->description;
+		$input->save();
+
+		return redirect('volunteering');
+
+	}
+
+	public function showprofile(Request $request) {
+
+		$user                        = $request->user();
+		$profiledata['profile_list'] = DB::select('select * from profile where user_id=?', [$user->id]);
+
+		return view('master', $profiledata);
+
+	}
+
+	public function editprofile(Request $request) {
+
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+		return view('editprofile', $data);
+	}
+
+	public function storeprofile(Request $request) {
+
+		$input             = new profiledetails;
+		$input->user_id    = $request->user_id;
+		$input->university = $request->university;
+		$input->lives      = $request->lives;
+		$input->interested = $request->interested;
+		$input->save();
+
+		return redirect('/profile_page/index');
+
+	}
+
+	public function aboutme() {
+
+		return view('aboutme');
+	}
+
+	public function showaboute(Request $request) {
+		$user              = $request->user();
+		$data['aboute_me'] = DB::select('select * from aboutme where user_id=?', [$user->id]);
+
+		return view('aboutme', $data);
+
+	}
+
+	public function addaboute(Request $request) {
+
+		$user            = $request->user();
+		$data['user_id'] = $user->id;
+		return view('add-aboute', $data);
+	}
+
+	public function aboutestore(Request $request) {
+
+		$input          = new about;
+		$input->user_id = $request->user_id;
+		$input->aboutme = $request->aboutme;
+		$input->save();
+
+		return redirect('aboutme');
+	}
+}
